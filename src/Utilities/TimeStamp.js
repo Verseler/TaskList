@@ -8,8 +8,6 @@ let hours = (date.getHours() < 10 ? "0" : "") + date.getHours();
 let minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
 
 
-const getCurrentDate = () => `${year}-${month}-${day}`;
+const getCurrentDate = () => `${year}-${month}-${day}T${hours}:${minutes}`;
 
-const getCurrentTime = () => `${hours}:${minutes}`;
-
-export { getCurrentDate, getCurrentTime };
+export { getCurrentDate };

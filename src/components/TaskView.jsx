@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ActionButton from "./ActionButton";
-import TimeStampInput from "./TimeStampInput";
 import IconButton from "./IconButton";
 
 export default function TaskView({
@@ -13,14 +12,12 @@ export default function TaskView({
   const [name, setName] = useState(EMPTY);
   const [desc, setDesc] = useState(EMPTY);
   const [dueDate, setDueDate] = useState(EMPTY);
-  const [dueTime, setDueTime] = useState(EMPTY);
 
   //This re-renders the task view when the current task is changed
   useEffect(() => {
     setName(currentTask?.name || EMPTY);
     setDesc(currentTask?.desc || EMPTY);
     setDueDate(currentTask?.dueDate || EMPTY);
-    setDueTime(currentTask?.dueTime || EMPTY);
   }, [currentTask]);
 
   //template for modified task
@@ -29,7 +26,6 @@ export default function TaskView({
     name: name,
     desc: desc,
     dueDate: dueDate,
-    dueTime: dueTime,
   };
 
   return (
@@ -54,18 +50,15 @@ export default function TaskView({
           rows={9}
           onChange={(e) => setDesc(e.target.value)}
         />
-        <TimeStampInput
-          label="Due Date"
-          type="date"
-          value={dueDate}
-          onChangeAction={(e) => setDueDate(e.target.value)}
-        />
-        <TimeStampInput
-          label="Due Time"
-          type="time"
-          value={dueTime}
-          onChangeAction={(e) => setDueTime(e.target.value)}
-        />
+        <div className="flex items-center gap-8">
+          <label>Due Date</label>
+          <input
+            className="p-2 text-sm transition-colors bg-transparent border rounded-md cursor-pointer border-zinc-200 outline-primary hover:border-primary"
+            type="datetime-local"
+            value={dueDate}
+            onChange={e => setDueDate(e.target.value)}
+          />
+        </div>
 
         <div className="absolute inset-x-0 flex px-5 justify-evenly bottom-7 gap-x-7">
           <ActionButton
@@ -76,7 +69,7 @@ export default function TaskView({
           <ActionButton
             bgColorStyle="bg-primary"
             label="Save"
-            onClickAction={() =>  updateTask(modifiedTask)}
+            onClickAction={() => updateTask(modifiedTask)}
           />
         </div>
       </div>

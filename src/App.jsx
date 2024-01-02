@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import TaskView from "./components/TaskView";
 import SideMenu from "./components/SideMenu";
 import ListView from "./components/ListView";
-import { getCurrentDate, getCurrentTime } from "./Utilities/TimeStamp";
+import { getCurrentDate } from "./Utilities/TimeStamp";
 import { nanoid } from "nanoid";
+
 
 export default function App() {
   const [showTaskView, setShowTaskView] = useState(false);
@@ -81,7 +82,6 @@ export default function App() {
       name: "New Task",
       description: "",
       dueDate: getCurrentDate(),
-      dueTime: getCurrentTime(),
     };
 
     //add the new task with the current taskList
