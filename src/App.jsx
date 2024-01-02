@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TaskView from "./components/TaskView";
 import SideMenu from "./components/SideMenu";
 import ListView from "./components/ListView";
 import { getCurrentDate } from "./Utilities/TimeStamp";
 import { nanoid } from "nanoid";
-
 
 export default function App() {
   const [showTaskView, setShowTaskView] = useState(false);
@@ -34,6 +33,42 @@ export default function App() {
   );
   let currentTask =
     currentList.tasks?.find((task) => task.id === currentTaskId) || {};
+
+  const [permission, setPermission] = useState("default");
+
+  //Notification functionality
+  //ask for permision for notification to user
+  useEffect(() => {
+    if(Notification.permission != "granted") {
+      Notification.requestPermission().then((permission) => {
+        setPermission(permission);
+      })
+    } else {
+      setPermission(Notification.permission);
+    }
+  }, []);
+
+  //check if task is due
+  useEffect(() => {
+
+    const allList = listCollection.map(list => list.tasks).flat();
+    allList.forEach(task => {
+      //cehck if task dueDate is not empty
+      if(task.dueDate) {
+        //check if task duedate is overdue and permission is already granted by users
+        if(task.dueDate <= getCurrentDate() && permission === "granted") {
+          const notification = new Notification(`Tasks ${task.name} is due!`, {
+            body: task.description,
+            tag: task.id
+          });
+          notification.addEventListener("close", () => {
+            notification.close()
+          });
+        }
+      }
+    });
+  }, [listCollection])
+
 
   /*
    *
@@ -81,7 +116,8 @@ export default function App() {
       id: nanoid(),
       name: "New Task",
       description: "",
-      dueDate: getCurrentDate(),
+      dueDate: "",
+        
     };
 
     //add the new task with the current taskList

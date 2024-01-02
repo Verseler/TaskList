@@ -24,8 +24,7 @@ export default function ListView({
     return listTasks?.map((task) => (
       <TaskCard
         key={task.id}
-        id={task.id}
-        name={task.name}
+        task={task}
         handleShowTaskView={handleShowTaskView}
       />
     ));
