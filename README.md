@@ -1,8 +1,12 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Desktop View:
 
-Currently, two official plugins are available:
+![todoDesktopDesign](https://github.com/Verseler/Todo/assets/121875436/6503a946-e88f-42c8-a0cc-3cf7fa2fb730)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Mobile View:
+![Untitled](https://github.com/Verseler/Todo/assets/121875436/8b517b61-af2a-4008-b6cb-69e94506b221)
+
+
+# Built with:
+
+[![My Skills](https://skillicons.dev/icons?i=html,tailwind,react)](https://skillicons.dev)
