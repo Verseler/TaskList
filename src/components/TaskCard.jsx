@@ -12,6 +12,8 @@ export default function TaskCard({ task, handleShowTaskView, updateTask }) {
     updateTask(modifiedTask);
   }
 
+  const taskDueTime = task.dueDate.split("T")[1];
+
   return (
     <button
       key={task.id}
@@ -34,6 +36,10 @@ export default function TaskCard({ task, handleShowTaskView, updateTask }) {
         >
           {task.name}
         </p>
+        {task.dueDate &&
+        (<div className="px-2 py-0.5 text-xs border rounded-md border-zinc-200">
+          {taskDueTime}
+        </div>)}
       </div>
 
       <span className="ml-auto material-symbols-outlined">navigate_next</span>

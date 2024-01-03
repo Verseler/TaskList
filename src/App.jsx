@@ -7,6 +7,7 @@ import { nanoid } from "nanoid";
 import logo from "/logo.png";
 
 export default function App() {
+  const EMPTY = "";
   const [showTaskView, setShowTaskView] = useState(false);
 
   const defaultListCollection = [{ id: nanoid(), name: "My Tasks", tasks: [] }];
@@ -42,10 +43,10 @@ export default function App() {
   //Notification functionality
   //ask for permision for notification to user
   useEffect(() => {
-    if(Notification.permission != "granted") {
+    if (Notification.permission != "granted") {
       Notification.requestPermission().then((permission) => {
         setPermission(permission);
-      })
+      });
     } else {
       setPermission(Notification.permission);
     }
@@ -53,31 +54,29 @@ export default function App() {
 
   //check if task is due
   useEffect(() => {
-
-    const allList = listCollection.map(list => list.tasks).flat();
-    allList.forEach(task => {
+    const allList = listCollection.map((list) => list.tasks).flat();
+    allList.forEach((task) => {
       //cehck if task dueDate is not empty
-      if(task.dueDate) {
+      if (task.dueDate) {
         //check if task duedate is overdue and permission is already granted by users
-        if(task.dueDate <= getCurrentDate() && permission === "granted") {
-          const dueTime = task.dueDate.split('T')[1];
+        if (task.dueDate <= getCurrentDate() && permission === "granted") {
+          const dueTime = task.dueDate.split("T")[1];
           const notification = new Notification(`Tasks ${task.name} is due!`, {
             body: dueTime,
             tag: task.id,
             icon: logo,
           });
           notification.addEventListener("close", () => {
-            notification.close()
+            notification.close();
           });
 
           return () => {
             notification.removeEventListener("close");
-          }
+          };
         }
       }
-    });  
-  }, [listCollection])
-
+    });
+  }, [listCollection]);
 
   /*
    *
@@ -89,7 +88,6 @@ export default function App() {
     const newListCollection = [...listCollection];
     newListCollection[currentListIndex] = newCurrentList;
     setListCollection(newListCollection);
-  
   }
 
   function createList(name) {
@@ -124,9 +122,9 @@ export default function App() {
   function createNewTask() {
     const newTask = {
       id: nanoid(),
-      name: "New Task",
-      description: "",
-      dueDate: "",
+      name: EMPTY,
+      desc: EMPTY,
+      dueDate: EMPTY,
       completed: false,
     };
 
@@ -135,11 +133,16 @@ export default function App() {
       ...currentList,
       tasks: [...currentList.tasks, newTask],
     };
-    setCurrentList(newCurrentList);
 
-    setCurrentTaskId(newTask.id);
-    //after creating task, show taskview and display the current task
-    setShowTaskView(true);
+    
+    //after clicking add new task it will delay for a few ms to avoid spamming
+    setTimeout(() => {
+      setCurrentList(newCurrentList);
+
+      setCurrentTaskId(newTask.id);
+      //after creating task, show taskview and display the current task
+      setShowTaskView(true);
+    }, 250);
   }
 
   function deleteTask(selectedTaskId) {
@@ -160,6 +163,16 @@ export default function App() {
   function updateTask(modifiedTask) {
     //if currentList.tasks is empty dont allow to modify more task
     if (currentList.tasks.length < 1) return;
+
+    //if task is empty, delete it
+    if (
+      modifiedTask.name === EMPTY &&
+      modifiedTask.desc === EMPTY &&
+      modifiedTask.dueDate === EMPTY
+    ) {
+      deleteTask(modifiedTask.id);
+      return;
+    }
 
     //update the modified task in the current list
     const newCurrentList = {

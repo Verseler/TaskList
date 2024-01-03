@@ -1,5 +1,6 @@
 import TaskCount from "./TaskCount";
 import TaskCardList from "./TaskCardList";
+import { getCurrentDate } from "../Utilities/TimeStamp";
 
 export default function ListView({
   listTasks,
@@ -7,7 +8,7 @@ export default function ListView({
   listCount,
   createNewTask,
   handleShowTaskView,
-  updateTask
+  updateTask,
 }) {
   const addTaskButton = () => {
     return (
@@ -21,6 +22,18 @@ export default function ListView({
     );
   };
 
+  const currentDate = getCurrentDate();
+  const listTasksToday = listTasks.filter(
+    (task) => !task.completed && task.dueDate === currentDate
+  );
+  const listTasksUpcoming = listTasks.filter(
+    (task) => !task.completed && task.dueDate > currentDate
+  );
+  const listTasksOverdue = listTasks.filter(
+    (task) => !task.completed && task.dueDate < currentDate
+  );
+  const listTasksCompleted = listTasks.filter((task) => task.completed);
+
   return (
     <div className="flex-1 min-h-[svh]">
       <header className="flex items-end sm:mt-5 h-max gap-x-5">
@@ -30,30 +43,38 @@ export default function ListView({
 
       <div className="py-6 sm:py-10">
         {addTaskButton()}
-        <TaskCardList
-          listTasks={listTasks}
-          type="Today"
-          handleShowTaskView={handleShowTaskView}
-          updateTask={updateTask}
-        />
-        <TaskCardList
-          listTasks={listTasks}
-          type="Upcoming"
-          handleShowTaskView={handleShowTaskView}
-          updateTask={updateTask}
-        />
-        <TaskCardList
-          listTasks={listTasks}
-          type="Overdue"
-          handleShowTaskView={handleShowTaskView}
-          updateTask={updateTask}
-        />
-        <TaskCardList
-          listTasks={listTasks}
-          type="Completed"
-          handleShowTaskView={handleShowTaskView}
-          updateTask={updateTask}
-        />
+        {listTasksToday.length >= 1 && (
+          <TaskCardList
+            listTasks={listTasksToday}
+            label="Today"
+            handleShowTaskView={handleShowTaskView}
+            updateTask={updateTask}
+          />
+        )}
+        {listTasksUpcoming.length >= 1 && (
+          <TaskCardList
+            listTasks={listTasksUpcoming}
+            label="Upcoming"
+            handleShowTaskView={handleShowTaskView}
+            updateTask={updateTask}
+          />
+        )}
+        {listTasksOverdue.length >= 1 && (
+          <TaskCardList
+            listTasks={listTasksOverdue}
+            label="Overdue"
+            handleShowTaskView={handleShowTaskView}
+            updateTask={updateTask}
+          />
+        )}
+        {listTasksCompleted.length >= 1 && (
+          <TaskCardList
+            listTasks={listTasksCompleted}
+            label="Completed"
+            handleShowTaskView={handleShowTaskView}
+            updateTask={updateTask}
+          />
+        )}
       </div>
     </div>
   );
