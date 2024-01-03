@@ -21,6 +21,7 @@ export default function App() {
     localStorage.setItem("listCollection", JSON.stringify(listCollection));
   });
 
+  //current list states
   const [currentListId, setCurrentListId] = useState(listCollection[0].id);
   const currentList =
     listCollection.find((list) => list.id === currentListId) ||
@@ -29,6 +30,7 @@ export default function App() {
     (list) => list.id === currentListId
   );
 
+  //current task states
   const [currentTaskId, setCurrentTaskId] = useState(
     currentList.tasks?.length > 0 ? currentList.tasks[0]?.id : ""
   );
@@ -67,9 +69,13 @@ export default function App() {
           notification.addEventListener("close", () => {
             notification.close()
           });
+
+          return () => {
+            notification.removeEventListener("close");
+          }
         }
       }
-    });
+    });  
   }, [listCollection])
 
 
@@ -83,6 +89,7 @@ export default function App() {
     const newListCollection = [...listCollection];
     newListCollection[currentListIndex] = newCurrentList;
     setListCollection(newListCollection);
+  
   }
 
   function createList(name) {
@@ -120,7 +127,7 @@ export default function App() {
       name: "New Task",
       description: "",
       dueDate: "",
-        
+      completed: false,
     };
 
     //add the new task with the current taskList
@@ -198,6 +205,7 @@ export default function App() {
         createNewTask={createNewTask}
         setCurrentTaskId={setCurrentTaskId}
         handleShowTaskView={handleShowTaskView}
+        updateTask={updateTask}
       />
 
       {showTaskView && (

@@ -1,12 +1,15 @@
-import { getCurrentDate } from "../Utilities/TimeStamp";
-import Banner from "./Banner";
+export default function TaskCard({ task, handleShowTaskView, updateTask }) {
+  function onChangeBox(task) {
+    let modifiedTask = {
+      id: task.id,
+      name: task.name,
+      desc: task.desc,
+      dueDate: task.dueDate,
+      completed: !task.completed, //only this property was changed
+    };
 
-export default function TaskCard({ task, handleShowTaskView }) {
-  //change this later on
-  //when select multiple task item feature is created
-  function handleTaskChecked(e) {
-    e.stopPropagation();
-    console.log(`tasks ${name} ${id} is checked`);
+    //remove the selected task from the current list
+    updateTask(modifiedTask);
   }
 
   return (
@@ -18,12 +21,19 @@ export default function TaskCard({ task, handleShowTaskView }) {
       <div className="w-6 h-6">
         <input
           type="checkbox"
-          onClick={handleTaskChecked}
+          onClick={() => onChangeBox(task)}
+          defaultChecked={task.completed}
           className="w-full align-middle bg-red-700"
         />
       </div>
       <div className="flex items-center gap-x-3">
-        <p className="overflow-hidden text-ellipsis">{task.name}</p>
+        <p
+          className={`${
+            task.completed && "line-through"
+          } overflow-hidden text-ellipsis`}
+        >
+          {task.name}
+        </p>
       </div>
 
       <span className="ml-auto material-symbols-outlined">navigate_next</span>

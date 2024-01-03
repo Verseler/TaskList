@@ -1,5 +1,5 @@
-import TaskCard from "./TaskCard";
 import TaskCount from "./TaskCount";
+import TaskCardList from "./TaskCardList";
 
 export default function ListView({
   listTasks,
@@ -7,6 +7,7 @@ export default function ListView({
   listCount,
   createNewTask,
   handleShowTaskView,
+  updateTask
 }) {
   const addTaskButton = () => {
     return (
@@ -20,16 +21,6 @@ export default function ListView({
     );
   };
 
-  const taskCardList = () => {
-    return listTasks?.map((task) => (
-      <TaskCard
-        key={task.id}
-        task={task}
-        handleShowTaskView={handleShowTaskView}
-      />
-    ));
-  };
-
   return (
     <div className="flex-1 min-h-[svh]">
       <header className="flex items-end sm:mt-5 h-max gap-x-5">
@@ -39,7 +30,30 @@ export default function ListView({
 
       <div className="py-6 sm:py-10">
         {addTaskButton()}
-        {taskCardList()}
+        <TaskCardList
+          listTasks={listTasks}
+          type="Today"
+          handleShowTaskView={handleShowTaskView}
+          updateTask={updateTask}
+        />
+        <TaskCardList
+          listTasks={listTasks}
+          type="Upcoming"
+          handleShowTaskView={handleShowTaskView}
+          updateTask={updateTask}
+        />
+        <TaskCardList
+          listTasks={listTasks}
+          type="Overdue"
+          handleShowTaskView={handleShowTaskView}
+          updateTask={updateTask}
+        />
+        <TaskCardList
+          listTasks={listTasks}
+          type="Completed"
+          handleShowTaskView={handleShowTaskView}
+          updateTask={updateTask}
+        />
       </div>
     </div>
   );
