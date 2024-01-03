@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import TaskView from "./components/TaskView";
 import SideMenu from "./components/SideMenu";
 import ListView from "./components/ListView";
@@ -35,8 +35,9 @@ export default function App() {
   const [currentTaskId, setCurrentTaskId] = useState(
     currentList.tasks?.length > 0 ? currentList.tasks[0]?.id : ""
   );
-  let currentTask =
+  const currentTask =
     currentList.tasks?.find((task) => task.id === currentTaskId) || {};
+
 
   const [permission, setPermission] = useState("default");
 
@@ -56,7 +57,7 @@ export default function App() {
   useEffect(() => {
     const allList = listCollection.map((list) => list.tasks).flat();
     allList.forEach((task) => {
-      //cehck if task dueDate is not empty
+      //check if task dueDate is not empty
       if (task.dueDate) {
         //check if task duedate is overdue and permission is already granted by users
         if (task.dueDate <= getCurrentDate() && permission === "granted") {

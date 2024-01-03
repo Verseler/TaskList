@@ -8,11 +8,10 @@ export default function SideMenu({
   createList,
   changeCurrentListId,
   currentListId,
-  deleteList
+  deleteList,
 }) {
   const [showSideMenu, setShowSideMenu] = useState(true);
   const [listName, setListName] = useState("");
-  const [searchValue, setSeachValue] = useState("");
 
   function handleShowMenu() {
     setShowSideMenu((prevShowSideMenu) => !prevShowSideMenu);
@@ -27,17 +26,17 @@ export default function SideMenu({
     }
   }
 
-  const searchBar = () => {
-    return (
-      <IconTextInput
-      name={searchValue}
-      iconType="search"
-      placeholder="Search"
-      inputOnChangeAction={(e) => setSeachValue(e.target.value)}
-      buttonOnClickAction={() => {}}
-    />
-    );
-  };
+  // const searchBar = () => {
+  //   return (
+  //     <IconTextInput
+  //     name={searchValue}
+  //     iconType="search"
+  //     placeholder="Search"
+  //     inputOnChangeAction={handleSearch}
+  //     buttonOnClickAction={handleSearch}
+  //   />
+  //   );
+  // };
 
   const listContainer = () => {
     return (
@@ -84,7 +83,6 @@ export default function SideMenu({
           onClickAction={handleShowMenu}
         />
       </header>
-      {showSideMenu && searchBar()}
       {showSideMenu && listContainer()}
       {showSideMenu && (
         <div className="absolute bottom-3">
