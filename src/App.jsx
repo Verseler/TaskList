@@ -4,6 +4,7 @@ import SideMenu from "./components/SideMenu";
 import ListView from "./components/ListView";
 import { getCurrentDate } from "./Utilities/TimeStamp";
 import { nanoid } from "nanoid";
+import logo from "/logo.png";
 
 export default function App() {
   const [showTaskView, setShowTaskView] = useState(false);
@@ -57,9 +58,11 @@ export default function App() {
       if(task.dueDate) {
         //check if task duedate is overdue and permission is already granted by users
         if(task.dueDate <= getCurrentDate() && permission === "granted") {
+          const dueTime = task.dueDate.split('T')[1];
           const notification = new Notification(`Tasks ${task.name} is due!`, {
-            body: task.description,
-            tag: task.id
+            body: dueTime,
+            tag: task.id,
+            icon: logo,
           });
           notification.addEventListener("close", () => {
             notification.close()

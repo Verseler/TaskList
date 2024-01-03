@@ -23,15 +23,7 @@ export default function TaskCard({ task, handleShowTaskView }) {
         />
       </div>
       <div className="flex items-center gap-x-3">
-        <p>{task.name}</p>
-        {
-          //check if currentTask is not empty, not completed, and duedate is overdue
-          task.dueDate &&
-            !task.completed &&
-            task.dueDate <= getCurrentDate() && (
-              <Banner type="danger" text="overdue" />
-            )
-        }
+        <p className="overflow-hidden text-ellipsis">{task.name}</p>
       </div>
 
       <span className="ml-auto material-symbols-outlined">navigate_next</span>

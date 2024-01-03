@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ActionButton from "./ActionButton";
 import IconButton from "./IconButton";
-import Banner from "./Banner";
 import { getCurrentDate } from "../Utilities/TimeStamp";
 
 export default function TaskView({
@@ -37,14 +36,6 @@ export default function TaskView({
         <h1 className="text-2xl font-bold">Task:</h1>
         <IconButton iconType="close" onClickAction={hideTaskView} />
       </header>
-      {
-        //check if currentTask is not empty, not completed, and duedate is overdue
-        currentTask.dueDate &&
-          !currentTask.completed &&
-          currentTask.dueDate <= getCurrentDate() && (
-            <Banner type="danger" text="overdue" />
-          )
-      }
 
       <div className="flex flex-col pt-8 gap-y-5">
         <input
@@ -52,6 +43,7 @@ export default function TaskView({
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          maxLength={20}
         />
         <textarea
           className="p-3 transition-colors bg-transparent border rounded-md min-h-32 max-h-96 border-zinc-200 outline-primary hover:border-primary"
