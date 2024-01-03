@@ -50,14 +50,14 @@ export default function TaskView({
 
       <div className="flex flex-col pt-8 gap-y-5">
         <input
-          className="p-3 transition-colors bg-transparent border rounded-md border-zinc-200 outline-primary hover:border-primary"
+          className="p-3 transition-colors bg-transparent border rounded-md border-zinc-200 outline-primary"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={20}
         />
         <textarea
-          className="p-3 transition-colors bg-transparent border rounded-md min-h-32 max-h-96 border-zinc-200 outline-primary hover:border-primary"
+          className="p-3 transition-colors bg-transparent border rounded-md min-h-32 max-h-96 border-zinc-200 outline-primary "
           placeholder="Description"
           value={desc}
           cols={3}
@@ -67,7 +67,7 @@ export default function TaskView({
         <div className="flex items-center gap-8">
           <label>Due Date</label>
           <input
-            className="p-2 text-sm transition-colors bg-transparent border rounded-md cursor-pointer border-zinc-200 outline-primary hover:border-primary"
+            className="p-2 text-sm transition-colors bg-transparent border rounded-md cursor-pointer border-zinc-200 outline-primary "
             type="datetime-local"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
