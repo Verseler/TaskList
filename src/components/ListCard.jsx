@@ -29,7 +29,7 @@ export default function List({ name, count, selected, onClickAction, onDeleteCli
       onClick={handleOnClick}
       className={`${
         selected && "bg-zinc-200 font-bold"
-      } w-full rounded-md flex items-center px-3 py-2 gap-x-2 transition-colors active:bg-zinc-100`}
+      } w-full rounded-md flex items-center px-3 py-2 gap-x-2 transition-colors active:bg-zinc-100 outline-primary`}
     >
       {showDeleteIcon ? (
         <span

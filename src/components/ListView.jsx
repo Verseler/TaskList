@@ -14,7 +14,7 @@ export default function ListView({
     return (
       <button
         onClick={createNewTask}
-        className="flex w-full px-5 py-3 whitespace-pre transition-transform border rounded-md cursor-pointer gap-x-3 text-start border-zinc-200 active:scale-95"
+        className="flex w-full px-5 py-3 whitespace-pre transition-transform border rounded-md cursor-pointer gap-x-3 text-start border-zinc-200 outline-primary active:scale-95"
       >
         <span className="material-symbols-outlined">add</span>
         <p>Add New Task</p>
