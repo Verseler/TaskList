@@ -35,13 +35,13 @@ export default function ListView({
   const listTasksCompleted = listTasks.filter((task) => task.completed);
 
   return (
-    <div className="flex-1 min-h-[svh]">
+    <div className="flex-1 min-h-[svh] ">
       <header className="flex items-end sm:mt-5 h-max gap-x-5">
         <p className="text-4xl font-bold">{listName}</p>
         <TaskCount size="large" count={listCount} />
       </header>
 
-      <div className="py-6 sm:py-10">
+      <div className="max-h-screen py-6 overflow-auto sm:pb-20 sm:pt-10">
         {addTaskButton()}
         {listTasksToday.length >= 1 && (
           <TaskCardList

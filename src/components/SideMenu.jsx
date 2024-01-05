@@ -40,7 +40,7 @@ export default function SideMenu({
 
   const listContainer = () => {
     return (
-      <div className="mt-8 border-b border-zinc-200/40 ">
+      <div className="mt-8 border-b border-zinc-200/40">
         <h2 className="text-xs font-bold">LIST</h2>
         <IconTextInput
           value={listName}
@@ -70,10 +70,10 @@ export default function SideMenu({
       className={`
       ${
         showSideMenu
-          ? "w-full bg-secondary inset-0 py-6  min-h-screen"
+          ? "w-full bg-secondary inset-0 py-6  min-h-screen "
           : "sm:w-0 end-0"
-      }
-      sm:min-h-full sm:py-6 px-5 sm:transition-all absolute 
+      } fixed
+      sm:min-h-full sm:py-6 px-5 sm:transition-all 
       sm:max-w-80 sm:relative sm:rounded-2xl`}
     >
       <header className="flex justify-between w-full mb-5">

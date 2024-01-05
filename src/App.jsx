@@ -62,7 +62,7 @@ export default function App() {
         //check if task duedate is overdue and permission is already granted by users
         if (task.dueDate <= getCurrentDate() && permission === "granted") {
           const dueTime = task.dueDate.split("T")[1];
-          const notification = new Notification(`Tasks ${task.name} is due!`, {
+          const notification = new Notification(`${task.name}`, {
             body: dueTime,
             tag: task.id,
             icon: logo,
@@ -203,7 +203,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-screen p-6 gap-x-2 sm:gap-x-8">
+    <div className="flex h-screen min-h-screen p-6 overflow-hidden gap-x-2 sm:gap-x-8">
       <SideMenu
         listCollection={listCollection}
         createList={createList}
